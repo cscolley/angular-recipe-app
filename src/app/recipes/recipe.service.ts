@@ -8,22 +8,28 @@ import { Recipe } from "./recipe.model";
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [
-    new Recipe(
-      "A Test Recipe",
-      "Test Description",
-      "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/12/Shakshuka-19.jpg",
-      [new Ingredient("fish", 3), new Ingredient("avocado", 5)]
-    ),
-    new Recipe(
-      "A 2nd Test Recipe",
-      "2nd Test Description",
-      "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/12/Shakshuka-19.jpg",
-      [new Ingredient("apricot", 7), new Ingredient("sausage", 4)]
-    ),
-  ];
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     "A Test Recipe",
+  //     "Test Description",
+  //     "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/12/Shakshuka-19.jpg",
+  //     [new Ingredient("fish", 3), new Ingredient("avocado", 5)]
+  //   ),
+  //   new Recipe(
+  //     "A 2nd Test Recipe",
+  //     "2nd Test Description",
+  //     "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/12/Shakshuka-19.jpg",
+  //     [new Ingredient("apricot", 7), new Ingredient("sausage", 4)]
+  //   ),
+  // ];
+  private recipes: Recipe[] = [];
 
   constructor(private shoppingListService: ShoppingListService) {}
+
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
   getRecipes() {
     return this.recipes.slice();
